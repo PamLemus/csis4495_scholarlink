@@ -19,6 +19,11 @@ Route::get('/', function () {
 
 Route::get('/home','App\Http\Controllers\HomeController@list')->name('home');
 
+Route::get('/tutor','App\Http\Controllers\TutorController@index')->name('tutor'); 
+
+Route::get('/tutor/{id_user}/create','App\Http\Controllers\TutorController@create')->name('tutor.create');
+
+Route::post('/tutor/{id_user}','App\Http\Controllers\TutorController@store')->name('tutor.store'); 
 
 Auth::routes();
 

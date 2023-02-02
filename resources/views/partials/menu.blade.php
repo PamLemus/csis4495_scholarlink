@@ -56,6 +56,12 @@
                             Chat
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tutor') }}">
+                            <span data-feather="tutor" class="align-text-bottom"></span>
+                            Tutor
+                        </a>
+                    </li>
 
                     @elseif(Auth()->user()->user_type == "admin")
                     <li class="nav-item">

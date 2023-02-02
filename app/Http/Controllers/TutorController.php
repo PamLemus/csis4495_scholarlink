@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tutor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TutorController extends Controller
 {
@@ -14,7 +16,13 @@ class TutorController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::id();
+        $viewData = array();
+        $viewData['title'] = 'List of Tutors';
+        $viewData['tutors'] = Tutor::all();
+        $viewData['id_user'] = $user;
+
+        return view('tutor.tutor')->with('viewData', $viewData);
     }
 
     /**
@@ -22,9 +30,16 @@ class TutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id_user)
     {
-        //
+        $user = User::findorFail($id_user);
+        $viewData[] = array();
+        $viewData['title'] = 'Become a Tutor';
+        $viewData["titleMenu"] = 'Welcome ' . $user->name;
+        $viewData["user"] = $user;
+
+        return view('tutor.create', compact('viewData'));
+
     }
 
     /**
@@ -33,9 +48,20 @@ class TutorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, $id_user)
+    {   
+
+        $nt = new Tutor;
+
+        $nt->tutor_user_id = $id_user;
+        $nt->school = $request->input('school');
+        $nt->major = $request->input('major');
+        $nt->description = $request->input('description');
+        
+        $nt->save();
+
+        return redirect()->route('tutor');
+        
     }
 
     /**
@@ -57,7 +83,11 @@ class TutorController extends Controller
      */
     public function edit(Tutor $tutor)
     {
-        //
+        $viewData[] = array();
+
+        $viewData["title"]  = 'Edit Tutor Profile';
+
+        return view('tutor.edit', compact('viewData', 'tutor'));
     }
 
     /**
@@ -69,7 +99,12 @@ class TutorController extends Controller
      */
     public function update(Request $request, Tutor $tutor)
     {
-        //
+        $tutor->school = $request->input('school');
+        $tutor->major = $request->input('major');
+        $tutor->description = $request->input('description');
+
+        $tutor->save();
+        return redirect()->route('tutor.index');
     }
 
     /**
@@ -78,8 +113,9 @@ class TutorController extends Controller
      * @param  \App\Models\Tutor  $tutor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tutor $tutor)
+    public function destroy($id)
     {
-        //
+        Tutor::destroy($id);
+        return redirect()->route('tutor.index');
     }
 }
