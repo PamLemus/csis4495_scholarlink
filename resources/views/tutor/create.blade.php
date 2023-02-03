@@ -14,12 +14,17 @@
         <h3>{{$viewData["titleMenu"]}}</h3>
     </div>
 
-    <form method="POST" action="{{ route('tutor.store' , $viewData['user']->id)}}">
+    <form method="POST" action="{{ route('tutor.store')}}" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
             <label for="bank" class="form-label">Name</label>
             <input type="text" class="form-control" id="first_name" name="" value="{{$viewData['user']->name}}" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="bank" class="form-label">Image Profile</label>
+            <input type="file" class="form-control" id="tutor_img" name="tutor_img">
         </div>
         
 

@@ -16,11 +16,11 @@ class TutorController extends Controller
      */
     public function index()
     {
-        $user = Auth::id();
+        $user = Auth::user();
         $viewData = array();
         $viewData['title'] = 'List of Tutors';
         $viewData['tutors'] = Tutor::all();
-        $viewData['id_user'] = $user;
+        $viewData['user'] = $user;
 
         return view('tutor.tutor')->with('viewData', $viewData);
     }
@@ -30,9 +30,9 @@ class TutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id_user)
+    public function create()
     {
-        $user = User::findorFail($id_user);
+        $user = Auth::user();
         $viewData[] = array();
         $viewData['title'] = 'Become a Tutor';
         $viewData["titleMenu"] = 'Welcome ' . $user->name;
@@ -48,15 +48,16 @@ class TutorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id_user)
+    public function store(Request $request)
     {   
 
         $nt = new Tutor;
 
-        $nt->tutor_user_id = $id_user;
+        $nt->tutor_user_id = Auth::id();
         $nt->school = $request->input('school');
         $nt->major = $request->input('major');
         $nt->description = $request->input('description');
+        $nt->tutor_img = $request->tutor_img->store('tutor_img','public');
         
         $nt->save();
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('school');
             $table->string('major');
             $table->string('description');
+            $table->string('tutor_img');
             $table->timestamps();
         });
     }
