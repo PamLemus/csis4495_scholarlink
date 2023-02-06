@@ -33,10 +33,12 @@ class TutorController extends Controller
     public function create()
     {
         $user = Auth::user();
+        $tutor = new Tutor();
         $viewData[] = array();
         $viewData['title'] = 'Become a Tutor';
         $viewData["titleMenu"] = 'Welcome ' . $user->name;
         $viewData["user"] = $user;
+        $viewData["degrees"] = $tutor->getDegrees();
 
         return view('tutor.create', compact('viewData'));
 

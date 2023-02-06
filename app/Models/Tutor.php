@@ -12,4 +12,8 @@ class Tutor extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    public function getDegrees(){
+        return ['Associate degree', 'Bachelor degree', 'Master degree', 'Doctoral degree'];
+    }
 }

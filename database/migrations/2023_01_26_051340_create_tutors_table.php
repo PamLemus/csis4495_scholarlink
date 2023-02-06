@@ -18,8 +18,9 @@ return new class extends Migration
             $table->unsignedBigInteger('tutor_user_id');
             $table->foreign('tutor_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('school');
-            $table->string('major');
-            $table->string('description');
+            $table->enum('degree', ['Associate degree', 'Bachelor degree', 'Master degree', 'Doctoral degree']);
+            $table->string('major');            
+            $table->text('description');
             $table->string('tutor_img');
             $table->timestamps();
         });
