@@ -18,7 +18,7 @@ class TutorController extends Controller
     {
         $user = Auth::user();
         $viewData = array();
-        $viewData['title'] = 'List of Tutors';
+        $viewData['title'] = 'My Profile';
         $viewData['tutors'] = Tutor::all();
         $viewData['user'] = $user;
 

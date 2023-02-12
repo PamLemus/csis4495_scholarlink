@@ -9,34 +9,46 @@
 
  <!-- Navbar Start -->
  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-     <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-         <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>@yield('title')</h2>
+     @guest
+     <a href="{{ route('logout') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+
+         <h2 class="m-0 text-primary"> <img src="{{url('/img/logo.png')}}" style="width:320px;height:75px;"></h2>
      </a>
+     @else
+     <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+
+         <h2 class="m-0 text-primary"> <img src="{{url('/img/logo.png')}}" style="width:320px;height:75px;"></h2>
+     </a>
+
+     @endguest
      <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
          <span class="navbar-toggler-icon"></span>
      </button>
      <div class="collapse navbar-collapse" id="navbarCollapse">
          <div class="navbar-nav ms-auto p-4 p-lg-0">
-         @auth    
-         @if(Auth()->user()->user_type == "user")
-             <a href="index.html" class="nav-item nav-link active">Home</a>
-             <a href="about.html" class="nav-item nav-link">My Courses</a>
-             <a href="courses.html" class="nav-item nav-link">Find a tutor</a>
-             <a href="{{ route('tutor.create') }}" class="nav-item nav-link">  
-                 @if(Auth()->user()->tutor)
-                 Tutor
-                 @else
-                 Become a Tutor
-                 @endif
-             </a>
+             @auth
+             @if(Auth()->user()->user_type == "user")
+             <a href="" class="nav-item nav-link active">Courses</a>
+             <a href="" class="nav-item nav-link active">Find a tutor</a>
+             <a href="" class="nav-item nav-link">My Lectures Content</a>
+             <a href="" class="nav-item nav-link">Chat</a>
+
+             @if(Auth()->user()->tutor)
+             <a href="{{ route('tutor') }}" class="nav-item nav-link">
+                 Tutor Profile </a>
+             @else
+             <a href="{{ route('tutor.create') }}" class="nav-item nav-link">
+                 Become a Tutor </a>
+             @endif
+
              @elseif(Auth()->user()->user_type == "admin")
              <a href="" class="nav-item nav-link">Users</a>
              @endif
-            
+
              @endif
              @guest
              <a href="" class="nav-item nav-link">About</a>
-             <a href="{{ route('login') }}" class="nav-item nav-link">Sign In</a>
+             <a href="{{ route('login') }}" class="nav-item nav-link">Log In</a>
 
          </div>
 
@@ -46,5 +58,5 @@
      </div>
      @endguest
  </nav>
- 
+
  <!-- Navbar End -->

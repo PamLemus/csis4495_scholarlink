@@ -1,13 +1,39 @@
+@include('partials.header')
 @extends('layouts.app')
 
+
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="{{ route('logout')}}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"> <img src="{{url('/img/logo.png')}}" style="width:320px;height:75px;"></h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            @guest
+            <a href="" class="nav-item nav-link">About</a>
+            <a href="{{ route('login') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Sign In<i class="fa fa-arrow-right ms-3"></i></a>
+            
+        </div>
+    </div>
+    @endguest
+</nav>
+<!-- Navbar End -->
+
+
+
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+        <div class="card">
+            <div class="card-header">{{ __('Enter your information to register:') }}</div>
+            <div class="card-body">
 
-                <div class="card-body">
+
+
+               
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -126,4 +152,5 @@
         </div>
     </div>
 </div>
+@include('partials.footer')
 @endsection
