@@ -26,6 +26,10 @@ Route::get('/tutor/create','App\Http\Controllers\TutorController@create')->name(
 
 Route::post('/tutor','App\Http\Controllers\TutorController@store')->name('tutor.store'); 
 
+Route::get('/tutor/find','App\Http\Controllers\TutorController@listTutors')->name('tutor.filter'); 
+
+Route::get('/tutor/results','App\Http\Controllers\TutorController@resultTutors')->name('tutor.results'); 
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

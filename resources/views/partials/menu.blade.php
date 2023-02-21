@@ -29,7 +29,7 @@
              @auth
              @if(Auth()->user()->user_type == "user")
              <a href="" class="nav-item nav-link active">Courses</a>
-             <a href="" class="nav-item nav-link active">Find a tutor</a>
+             <a href="{{ route('tutor.filter') }}" class="nav-item nav-link active">Find a tutor</a>
              <a href="" class="nav-item nav-link">My Lectures Content</a>
              <a href="" class="nav-item nav-link">Chat</a>
 

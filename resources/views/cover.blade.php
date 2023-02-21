@@ -1,8 +1,9 @@
 @section('title', "Scholar Link")
-@guest
-
 @include('partials.header')
 @include('partials.menu')
+
+@guest
+
 
 
  <!-- Carousel Start -->
@@ -89,6 +90,6 @@
         </div>
     </div>
     <!-- Service End -->
-
+    @else
 @endguest
 @include('partials.footer')
