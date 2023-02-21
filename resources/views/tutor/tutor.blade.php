@@ -11,10 +11,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">@yield('page_title')</h1>
-    </div>    
-    
-    
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+
+            <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+
+                <h3 class="h3">@yield('page_title')</h3>
+
+            </a>
+           
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{{route('tutor.course.index' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link active">My Courses</a>
+                <!-- <a href="{{isset($viewData['tutor']) ? route('tutor.course.create' , ['tutor'=>$viewData['tutor']]) : '#'}}" class="nav-item nav-link">Add Courses</a> -->
+                <a href="{{route('tutor.course.store' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link">Add Courses</a>
+            </div>
+        </nav>
+    </div>
+
+
     <div class="container">
         <div class="team-single">
             <div class="row">
@@ -185,7 +198,7 @@
         </div>
     </div>
 
-    
+
 
 
 

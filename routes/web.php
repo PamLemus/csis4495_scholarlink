@@ -26,6 +26,8 @@ Route::get('/tutor/create','App\Http\Controllers\TutorController@create')->name(
 
 Route::post('/tutor','App\Http\Controllers\TutorController@store')->name('tutor.store'); 
 
+Route::resource('tutor.course' , 'App\Http\Controllers\TutorCourseController');
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
