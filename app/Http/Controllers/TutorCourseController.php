@@ -55,7 +55,7 @@ class TutorCourseController extends Controller
         //$ntc->tutor_courses = $request->input('tutor_courses');
         
 
-        return redirect()->route('tutor_course.index', $tutor)->with('success', 'Course enrolled sucessfully');
+        return redirect()->route('tutor.course.index', $tutor)->with('success', 'Course enrolled sucessfully');
     }
 
     /**
