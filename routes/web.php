@@ -26,9 +26,13 @@ Route::get('/tutor/create','App\Http\Controllers\TutorController@create')->name(
 
 Route::post('/tutor','App\Http\Controllers\TutorController@store')->name('tutor.store'); 
 
+<<<<<<< HEAD
 Route::get('/tutor/find','App\Http\Controllers\TutorController@listTutors')->name('tutor.filter'); 
 
 Route::get('/tutor/results','App\Http\Controllers\TutorController@resultTutors')->name('tutor.results'); 
+=======
+Route::resource('tutor.course' , 'App\Http\Controllers\TutorCourseController');
+>>>>>>> b20b44b5d9c970ca620275eb8d69387cd5c377e8
 
 Auth::routes();
 
