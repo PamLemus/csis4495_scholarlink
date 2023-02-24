@@ -24,4 +24,6 @@ protected $primaryKey='tutor_id'; because we put tutor_id as a name
 
 {{$key+1}}
 
-
+- Change:
+syncWithoutDetaching 
+line 54 TutorCourseController

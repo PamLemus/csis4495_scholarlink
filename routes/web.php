@@ -31,9 +31,15 @@ Route::get('/tutor/find','App\Http\Controllers\TutorController@listTutors')->nam
 Route::get('/tutor/results','App\Http\Controllers\TutorController@resultTutors')->name('tutor.results'); 
 Route::resource('tutor.course' , 'App\Http\Controllers\TutorCourseController');
 
+Route::get('/chat', 'App\Http\Controllers\ChatController@index')->name('chat');
+
+Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->name('chat.send');
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
+
