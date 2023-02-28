@@ -37,6 +37,9 @@ Route::get('/tutor/filters','App\Http\Controllers\TutorController@filtersTutors'
 
 Route::delete('tutors/{tutor_id}/courses/{course_id}', 'App\Http\Controllers\TutorCourseController@destroy')
     ->name('tutors.courses.destroy');
+Route::get('/chat', 'App\Http\Controllers\ChatController@index')->name('chat');
+
+Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->name('chat.send');
 
 Auth::routes();
 
@@ -44,3 +47,5 @@ Auth::routes();
 
 
 Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
+

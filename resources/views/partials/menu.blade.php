@@ -28,6 +28,11 @@
          <div class="navbar-nav ms-auto p-4 p-lg-0">
              @auth
              @if(Auth()->user()->user_type == "user")
+             <a href="" class="nav-item nav-link active">Courses</a>
+             <a href="{{ route('tutor.filter') }}" class="nav-item nav-link active">Find a tutor</a>
+             <a href="" class="nav-item nav-link">My Lectures Content</a>
+             <a href="{{ route('chat') }}" class="nav-item nav-link">Chat</a>
+
              
              <a href="{{ route('tutor.filter') }}" class="nav-item nav-link active">Home</a>
              @if(Auth()->user()->tutor)
