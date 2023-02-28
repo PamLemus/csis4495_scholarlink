@@ -13,6 +13,6 @@ class Course extends Model
     protected $table='courses';
 
     public function tutors(){
-        return $this->belongsToMany(Tutor::class , 'tutor_courses' , 'tc_course_id' , 'tc_tutor_id' );
+        return $this->belongsToMany(Tutor::class , 'tutor_courses' , 'tc_course_id' , 'tc_tutor_id');
     }
 }

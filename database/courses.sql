@@ -1,0 +1,22 @@
+use `dbscholarlink`;
+
+insert into courses (course_id, course_name) values (1, 'SALES AND MARKETING LAW');
+insert into courses (course_id, course_name) values (2, 'REAL ESTATE LAW');
+insert into courses (course_id, course_name) values (3, 'EXCEL FOR BUSINESS');
+insert into courses (course_id, course_name) values (4, 'INTRODUCTION TO PROGRAMMING');
+insert into courses (course_id, course_name) values (5, 'VIRTUALIZATION AND COMPUTER NETWORKING');
+insert into courses (course_id, course_name) values (6, 'DATABASE');
+insert into courses (course_id, course_name) values (7, 'MACHINE LEARNING IN DATA SCIENCE');
+insert into courses (course_id, course_name) values (8, 'DIGITAL FORENSICS');
+insert into courses (course_id, course_name) values (9, 'CLOUD INFRASTRUCTURE');
+insert into courses (course_id, course_name) values (10, 'PERSONAL FINANCE');
+insert into courses (course_id, course_name) values (11, 'FINANCIAL STATEMENT ANALYSIS');
+insert into courses (course_id, course_name) values (12, 'PYTHON AND STATISTICS FOR FINANCIAL ANALYSIS');
+insert into courses (course_id, course_name) values (13, 'JAVASCRIPT ALGORITHMS AND DATA STRUCTURES');
+insert into courses (course_id, course_name) values (14, 'INTRODUCTION TO PHILOSOPHY');
+insert into courses (course_id, course_name) values (15, 'GRAPHIC DESIGN');
+insert into courses (course_id, course_name) values (16, 'INTRODUCTION TO ARTIFICIAL INTELLIGENCE (AI)');
+insert into courses (course_id, course_name) values (17, 'ROBOTICS');
+insert into courses (course_id, course_name) values (18, 'PROJECT MANAGEMENT');
+insert into courses (course_id, course_name) values (19, 'SUPPLY CHAIN');
+insert into courses (course_id, course_name) values (20, 'INTRODUCTION TO SOCIAL MEDIA MARKETING');

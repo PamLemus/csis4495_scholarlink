@@ -51,7 +51,13 @@ class TutorCourseController extends Controller
     {
         
         $course = Course::find($request->input('course'));
-        $tutor-> courses()->attach($course);
+        $p_school = $request->input('course_school');
+        $p_teacher = $request->input('course_teacher');
+        $tutor->courses()->attach($course, [
+            'p_course_school'=> $p_school,
+            'p_course_teacher' => $p_teacher,
+        ]);
+        
         //$ntc->tutor_courses = $request->input('tutor_courses');
         
 
@@ -98,8 +104,14 @@ class TutorCourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($tutor_id, $course_id)
     {
-        //
+        $tutor = Tutor::findOrFail($tutor_id);
+        $course = Course::findOrFail($course_id);
+
+        $tutor->courses()->detach($course_id);
+
+        return back();
+        
     }
 }

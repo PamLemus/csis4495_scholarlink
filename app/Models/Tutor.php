@@ -21,6 +21,9 @@ class Tutor extends Model
     }
 
     public function courses(){
-        return $this->belongsToMany(Course::class , 'tutor_courses' , 'tc_tutor_id' , 'tc_course_id');
+        return $this->belongsToMany(Course::class , 'tutor_courses' , 'tc_tutor_id' , 'tc_course_id')
+        ->withPivot(['p_course_school','p_course_teacher']);
     }
+
+   
 }

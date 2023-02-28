@@ -5,35 +5,35 @@
 @guest
 @include('cover')
 @else
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="{{ URL::asset('css/scholarlink.css') }}" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-
-            <a href="{{route('tutor')}}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-
-                <h3 class="h3">@yield('page_title')</h3>
-
-            </a>
-
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{{route('tutor.course.index' , ['tutor'=>$viewData['tutor']])}}" class="nav-item nav-link active">My Courses</a>
-                <a href="{{isset($viewData['tutor']) ? route('tutor.course.create' , ['tutor'=>$viewData['tutor']]) : '#'}}" class="nav-item nav-link">Add Courses</a>
-            </div>
-        </nav>
-    </div>
 
 
-    <div class="container">
+<div class="container d-flex flex-row position-relative">
+    <nav class="navbar navbar-light bg-light shadow p-0 flex-column position-relative " style="height:100%; left:-120px;">
+
+        <a href="{{ route('tutor') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h3 class="h3">@yield('page_title')</h3>
+        </a>
+
+        <div class="p-4 p-lg-0 mt-auto">
+
+            <a href="{{route('tutor.course.index' , ['tutor'=>$viewData['tutor']])}}" class="nav-item nav-link active">My Courses</a>
+            <a href="{{isset($viewData['tutor']) ? route('tutor.course.create' , ['tutor'=>$viewData['tutor']]) : '#'}}" class="nav-item nav-link">Add Courses</a>
+        </div>
+    </nav>
+
+
+
+    <div class="container"><br>
         <table class="table">
-            <thead>
+            <thead style="text-align:center">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Number</th>
                     <th scope="col">Course Name</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">School where I took the course</th>
+                    <th scope="col">Instructor who taught the course</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -41,8 +41,17 @@
                 <tr>
                     <th scope="row">{{$key+1}}</th>
                     <td>{{$course->course_name}}</td>
-                    <td></td>
+                    <td>{{$course->pivot->p_course_school}}</td>
+                    <td>{{$course->pivot->p_course_teacher}}</td>
+                    <td>
+                        <form action="{{ route('tutors.courses.destroy', ['tutor_id'=>$viewData['tutor'], 'course_id'=>$course->course_id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        </form>
+                    </td>
                 </tr>
+
                 @endforeach
             </tbody>
         </table>
@@ -52,7 +61,7 @@
 
 
 
-</main>
+    </main>
 </div>
 </div>
 @endguest

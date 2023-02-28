@@ -1,6 +1,8 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,11 @@ Route::get('/tutor/find','App\Http\Controllers\TutorController@listTutors')->nam
 
 Route::get('/tutor/results','App\Http\Controllers\TutorController@resultTutors')->name('tutor.results'); 
 Route::resource('tutor.course' , 'App\Http\Controllers\TutorCourseController');
+
+Route::get('/tutor/filters','App\Http\Controllers\TutorController@filtersTutors')->name('tutor.filters');
+
+Route::delete('tutors/{tutor_id}/courses/{course_id}', 'App\Http\Controllers\TutorCourseController@destroy')
+    ->name('tutors.courses.destroy');
 
 Auth::routes();
 

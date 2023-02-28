@@ -26,6 +26,7 @@ class TutorController extends Controller
         $viewData['tutors'] = Tutor::all();
         $viewData['user'] = $user;
 
+
         return view('tutor.tutor')->with('viewData', $viewData);
     }
 
@@ -59,8 +60,9 @@ class TutorController extends Controller
         $nt = new Tutor;
         $nt->tutor_user_id = Auth::id();
         $nt->school = $request->input('school');
+        $nt->degree = $request->input('degree');
         $nt->major = $request->input('major');
-        $nt->description = $request->input('description');
+               $nt->description = $request->input('description');
         $nt->tutor_img = $request->tutor_img->store('tutor_img', 'public');
 
         $nt->save();
@@ -149,7 +151,7 @@ class TutorController extends Controller
         $timeD = 0.5;
         $tutors['delay'] = $timeD;
 
-        return view('find_tutors')
+        return view('find.find_tutors')
             ->with('tutors', $tutors);
     }
 
@@ -159,23 +161,191 @@ class TutorController extends Controller
         $tutors = array();
         $tutors['title'] = "Scholar Link";
         $tutors['header'] = "Find the perfect tutor for you";
-        $tutors_results = DB::table('tutors')
-            ->join('users as us', 'us.id', '=', 'tutors.tutor_user_id')
-            ->where(function($query) use ($request) {
-            $query->where('us.name', 'like', '%' . $request->input('tutor_filter') . '%')
-            ->orWhere('us.last_name', 'like', '%' . $request->input('tutor_filter') . '%')
-            ->orWhere('us.occupation', 'like', '%' . $request->input('tutor_filter') . '%')
-            ->orWhere('tutors.school', 'like', '%' . $request->input('tutor_filter') . '%')
-            ->orWhere('tutors.degree', 'like', '%' . $request->input('tutor_filter') . '%')
-            ->orWhere('tutors.major', 'like', '%' . $request->input('tutor_filter') . '%')
-            ->orWhere('tutors.description', 'like', '%' . $request->input('tutor_filter') . '%');
-            });
+       
+        $tutors_results = DB::table('tutors as t')
+        ->join('users as u', 'u.id', '=', 't.tutor_user_id')
+        ->join('tutor_courses as tc', 'tc.tc_tutor_id', '=', 't.tutor_id')
+        ->join('courses as c', 'c.course_id', '=', 'tc.tc_course_id')
+        ->select('t.tutor_id', 't.school', 't.degree', 't.major', 't.description', 't.tutor_img', 'u.name', 'u.last_name', 'u.occupation', 'c.course_name', 'tc.tc_course_id','tc.tc_tutor_id','tc.p_course_school', 'tc.p_course_teacher')
+        ->where(function ($query) use ($request) {
+            $query->Where('u.last_name', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orwhere('u.name', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('u.occupation', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('t.school', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('t.degree', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('t.major', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('t.description', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('c.course_name', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('tc.p_course_school', 'like', '%' . $request->input('tutor_filter') . '%')
+                ->orWhere('tc.p_course_teacher', 'like', '%' . $request->input('tutor_filter') . '%');
+        })
+        ->where('tc.tc_course_id', function ($subquery) {
+            $subquery->selectRaw('max(tc2.tc_course_id)')
+                ->from('tutor_courses as tc2')
+                ->whereRaw('tc2.tc_tutor_id = t.tutor_id');
+        })
+        ->groupBy('t.tutor_id', 't.school', 't.degree', 't.major', 't.description', 't.tutor_img', 'u.name', 'u.last_name', 'u.occupation', 'c.course_name', 'tc.tc_course_id','tc.tc_tutor_id','tc.p_course_school', 'tc.p_course_teacher')
+        ->orderBy('u.name')
+        ->get();
+    
+        $tutors['results'] = $tutors_results;
+        
+        foreach ($tutors_results as $tutor) {
+            $tutor_courses = DB::table('tutor_courses')
+                ->join('courses', 'tutor_courses.tc_course_id', '=', 'courses.course_id')
+                ->where('tutor_courses.tc_tutor_id', '=', $tutor->tutor_id)
+                ->select('courses.course_name', 'tutor_courses.p_course_school', 'tutor_courses.p_course_teacher')
+                ->get();
+
+            $tutor->courses = $tutor_courses->pluck('course_name')->toArray();
+            $tutor->p_course_school = $tutor_courses->pluck('p_course_school')->toArray();
+            $tutor->p_course_teacher = $tutor_courses->pluck('p_course_teacher')->toArray();
+        }
 
 
-        $tutors['results'] = $tutors_results->get();
+        $tutors['results'] = $tutors_results;
+        
+
         $timeD = 0.5;
         $tutors['delay'] = $timeD;
-        return view('find_tutors_results')
+
+
+        $tutorIds = DB::table('tutors')
+        ->leftJoin('tutor_courses', 'tutors.tutor_id', '=', 'tutor_courses.tc_tutor_id')
+        ->join('users as us', 'us.id', '=', 'tutors.tutor_user_id')
+        ->whereNull('tutor_courses.tc_tutor_id')
+        ->pluck('us.id');
+
+        $tutors['wo_courses'] = $tutorIds;
+        $tutors['tutors_without_courses'] = [];
+        
+         
+         foreach ($tutorIds as $tutorid) {
+            $miss_tutorids = DB::table('tutors')
+                ->join('users as u', 'u.id', '=', 'tutors.tutor_user_id')
+                ->select('u.name', 'u.last_name', 'u.occupation', 'tutors.major', 'tutors.degree',
+                'tutors.school', 'tutors.description', 'tutors.tutor_img')
+                ->where('tutors.tutor_user_id', '=', $tutorid)
+                ->where(function ($query) use ($request) {
+                    $query->Where('u.last_name', 'like', '%' . $request->input('tutor_filter') . '%')
+                    ->orwhere('u.name', 'like', '%' . $request->input('tutor_filter') . '%')
+                    ->orWhere('u.occupation', 'like', '%' . $request->input('tutor_filter') . '%')
+                    ->orWhere('tutors.school', 'like', '%' . $request->input('tutor_filter') . '%')
+                    ->orWhere('tutors.degree', 'like', '%' . $request->input('tutor_filter') . '%')
+                    ->orWhere('tutors.major', 'like', '%' . $request->input('tutor_filter') . '%')
+                    ->orWhere('tutors.description', 'like', '%' . $request->input('tutor_filter') . '%');
+               
+                })
+                ->get();
+
+                if ($miss_tutorids->count() > 0) {
+                    $tutors['tutors_without_courses'][] = $miss_tutorids->first();
+                }
+    }
+       
+        //dd($tutors['tutors_without_courses']);
+
+
+
+        return view('find.find_tutors_results')
+            ->with('tutors', $tutors);
+    }
+
+
+    
+    public function filtersTutors(Request $request)
+    {
+
+        $tutors = array();
+        $tutors['title'] = "Scholar Link";
+        $tutors['header'] = "Find the perfect tutor for you";
+       
+        $tutors_results = DB::table('tutors as t')
+        ->join('users as u', 'u.id', '=', 't.tutor_user_id')
+        ->join('tutor_courses as tc', 'tc.tc_tutor_id', '=', 't.tutor_id')
+        ->join('courses as c', 'c.course_id', '=', 'tc.tc_course_id')
+        ->select('t.tutor_id', 't.school', 't.degree', 't.major', 't.description', 't.tutor_img', 'u.name', 'u.last_name', 'u.occupation', 'c.course_name', 'tc.tc_course_id','tc.tc_tutor_id','tc.p_course_school', 'tc.p_course_teacher')
+        ->where(function ($query) use ($request) {
+            $query->Where('u.last_name', '=', $request->input('last_name'))
+                ->orwhere('u.name', '=', $request->input('name'))
+                ->orWhere('u.occupation', '=', $request->input('occupation'))
+                ->orWhere('t.school', '=', $request->input('school'))
+                ->orWhere('t.degree', '=', $request->input('degree'))
+                ->orWhere('t.major', '=', $request->input('major'))
+                ->orWhere('t.description', '=', $request->input('description'))
+                ->orWhere('c.course_name', '=', $request->input('course_name'))
+                ->orWhere('tc.p_course_school', '=', $request->input('p_course_school'))
+                ->orWhere('tc.p_course_teacher', '=', $request->input('p_course_teacher'));
+        })
+        ->where('tc.tc_course_id', function ($subquery) {
+            $subquery->selectRaw('max(tc2.tc_course_id)')
+                ->from('tutor_courses as tc2')
+                ->whereRaw('tc2.tc_tutor_id = t.tutor_id');
+        })
+        ->groupBy('t.tutor_id', 't.school', 't.degree', 't.major', 't.description', 't.tutor_img', 'u.name', 'u.last_name', 'u.occupation', 'c.course_name', 'tc.tc_course_id','tc.tc_tutor_id','tc.p_course_school', 'tc.p_course_teacher')
+        ->orderBy('u.name')
+        ->get();
+    
+        $tutors['results'] = $tutors_results;
+        
+        foreach ($tutors_results as $tutor) {
+            $tutor_courses = DB::table('tutor_courses')
+                ->join('courses', 'tutor_courses.tc_course_id', '=', 'courses.course_id')
+                ->where('tutor_courses.tc_tutor_id', '=', $tutor->tutor_id)
+                ->select('courses.course_name', 'tutor_courses.p_course_school', 'tutor_courses.p_course_teacher')
+                ->get();
+
+            $tutor->courses = $tutor_courses->pluck('course_name')->toArray();
+            $tutor->p_course_school = $tutor_courses->pluck('p_course_school')->toArray();
+            $tutor->p_course_teacher = $tutor_courses->pluck('p_course_teacher')->toArray();
+        }
+
+
+        $tutors['results'] = $tutors_results;
+        
+
+        $timeD = 0.5;
+        $tutors['delay'] = $timeD;
+
+
+        $tutorIds = DB::table('tutors')
+        ->leftJoin('tutor_courses', 'tutors.tutor_id', '=', 'tutor_courses.tc_tutor_id')
+        ->join('users as us', 'us.id', '=', 'tutors.tutor_user_id')
+        ->whereNull('tutor_courses.tc_tutor_id')
+        ->pluck('us.id');
+
+        $tutors['wo_courses'] = $tutorIds;
+        $tutors['tutors_without_courses'] = [];
+        
+         
+         foreach ($tutorIds as $tutorid) {
+            $miss_tutorids = DB::table('tutors')
+                ->join('users as u', 'u.id', '=', 'tutors.tutor_user_id')
+                ->select('u.name', 'u.last_name', 'u.occupation', 'tutors.major', 'tutors.degree',
+                'tutors.school', 'tutors.description', 'tutors.tutor_img')
+                ->where('tutors.tutor_user_id', '=', $tutorid)
+                ->where(function ($query) use ($request) {
+                    $query->Where('u.last_name', '=', $request->input('last_name'))
+                    ->orwhere('u.name', '=', $request->input('name'))
+                    ->orWhere('u.occupation', '=', $request->input('occupation'))
+                    ->orWhere('tutors.school', '=', $request->input('school'))
+                    ->orWhere('tutors.degree', '=', $request->input('degree'))
+                    ->orWhere('tutors.major', '=', $request->input('major'))
+                    ->orWhere('tutors.description', '=', $request->input('description'));
+               
+                })
+                ->get();
+
+                if ($miss_tutorids->count() > 0) {
+                    $tutors['tutors_without_courses'][] = $miss_tutorids->first();
+                }
+    }
+       
+        //dd($tutors['tutors_without_courses']);
+
+
+
+        return view('find.find_tutors_results')
             ->with('tutors', $tutors);
     }
 }
