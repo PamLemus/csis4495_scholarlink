@@ -41,6 +41,10 @@ Route::get('/chat', 'App\Http\Controllers\ChatController@index')->name('chat');
 
 Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->name('chat.send');
 
+Route::group(['prefix'=>'admin', 'as'=>'admin.'],function(){
+    Route::resource('users' , 'App\Http\Controllers\UserController');
+});
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
