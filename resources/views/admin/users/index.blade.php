@@ -17,7 +17,7 @@
         </a>
 
         <div class="p-4 p-lg-0 mt-auto">
-            <a href="{{isset($viewData['tutor']) ? route('tutor.course.create' , ['tutor'=>$viewData['tutor']]) : '#'}}" class="nav-item nav-link">Add User</a>
+            <a href="{{route('admin.users.create')}}" class="nav-item nav-link">Add User</a>
         </div>
     </nav>
 
@@ -54,6 +54,7 @@
                             <a class="btn btn-primary" href="{{ route('admin.users.edit', $user) }}">Edit</a>
                             @if($user->user_type == 'user')
                             <button class="btn btn-danger" type="submit">Delete</button>
+                            <a class="btn btn-success" href="{{ route('admin.tutors.create') }}?id={{$user->id}}">Become a Tutor</a>
                             @endif
                         </form>
                     </td>

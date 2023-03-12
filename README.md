@@ -32,6 +32,8 @@ Write and execute the command:
 
     php artisan serve
 
+    npm run dev
+
 ### Command to process background events/tasks
 
 In a different terminal, write and execute the command:

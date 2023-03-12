@@ -30,7 +30,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $viewData = array();
+        $viewData['title'] = 'Create a new user';
+
+        return view('admin.users.create')->with('viewData', $viewData);
     }
 
     /**
@@ -41,7 +44,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nu = new User();
+        $nu->name = $request->input('name');
+        $nu->last_name = $request->input('last_name');
+        $nu->date_of_birth = $request->input('date_of_birth');
+        $nu->occupation = $request->input('occupation');
+        $nu->email = $request->input('email');
+        $nu->password = bcrypt($request->input('password'));
+        $nu->user_type = $request->input('user_type');
+
+        $nu->save();
+
+        return redirect()->route('admin.users.index');
     }
 
     /**

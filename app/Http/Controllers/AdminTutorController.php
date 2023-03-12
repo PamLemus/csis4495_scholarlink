@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tutor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Ui\Presets\React;
 
 class AdminTutorController extends Controller
 {
@@ -18,8 +20,8 @@ class AdminTutorController extends Controller
         $viewData = array();
         $viewData['title'] = 'Tutors';
         $viewData['tutors'] = $tutors;
-        
-        
+
+
         return view('admin.tutors.index')->with('viewData', $viewData);
     }
 
@@ -28,9 +30,17 @@ class AdminTutorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $user = User::findOrFail($request->id);
+
+        $tutor = new Tutor();
+        $viewData[] = array();
+        $viewData['title'] = 'Become a Tutor';
+        $viewData["user"] = $user;
+        $viewData["degrees"] = $tutor->getDegrees();
+
+        return view('admin.tutors.create')->with('viewData', $viewData);
     }
 
     /**
@@ -41,7 +51,17 @@ class AdminTutorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nt = new Tutor;
+        $nt->tutor_user_id = $request->input('tutor_user_id');
+        $nt->school = $request->input('school');
+        $nt->degree = $request->input('degree');
+        $nt->major = $request->input('major');
+        $nt->description = $request->input('description');
+        $nt->tutor_img = $request->tutor_img->store('tutor_img', 'public');
+
+        $nt->save();
+
+        return redirect()->route('admin.tutors.index');
     }
 
     /**
@@ -80,10 +100,10 @@ class AdminTutorController extends Controller
     public function update(Request $request, Tutor $tutor)
     {
         $request->validate([
-            'school'=>'required',
-            'degree'=>'required',
-            'major'=>'required',
-            'description'=>'required'
+            'school' => 'required',
+            'degree' => 'required',
+            'major' => 'required',
+            'description' => 'required'
         ]);
         $tutor->school = $request->input('school');
         $tutor->degree = $request->input('degree');

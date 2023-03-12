@@ -15,6 +15,10 @@
         <a href="{{ route('tutor') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h3 class="h3">@yield('page_title')</h3>
         </a>
+
+        <div class="p-4 p-lg-0 mt-auto">
+            <a href="{{route('admin.courses.create')}}" class="nav-item nav-link">Add Course</a>
+        </div>
     </nav>
 
 
@@ -24,33 +28,19 @@
             <thead style="text-align:center">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">School</th>
-                    <th scope="col">Degree</th>
-                    <th scope="col">Major</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Tutor Image</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Course Name</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($viewData["tutors"] as $key=>$tutor)
+                @foreach($viewData["courses"] as $key=>$course)
                 <tr>
                     <th scope="row">{{$key+1}}</th>
-                    <td>{{$tutor->user->name}}</td>
-                    <td>{{$tutor->user->last_name}}</td>
-                    <td>{{$tutor->school}}</td>
-                    <td>{{$tutor->degree}}</td>
-                    <td>{{$tutor->major}}</td>
-                    <td>{{$tutor->description}}</td>
-                    <td><img src="../storage/{{$tutor->tutor_img}}" alt="" width="50" height="50"></td>
-                    
+                    <td>{{$course->course_name}}</td>
                     <td>
-                        <form action="{{ route('admin.tutors.destroy', $tutor) }}" method="POST">
+                        <form action="{{ route('admin.courses.destroy', $course) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a class="btn btn-primary" href="{{ route('admin.tutors.edit', $tutor) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('admin.courses.edit', $course) }}">Edit</a>
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
                     </td>
@@ -61,11 +51,6 @@
             </tbody>
         </table>
     </div>
-
-
-
-
-
     </main>
 </div>
 </div>
