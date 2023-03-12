@@ -13,7 +13,7 @@ class Tutor extends Model
     protected $table='tutors';
 
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User' , 'tutor_user_id');
     }
 
     public function getDegrees(){

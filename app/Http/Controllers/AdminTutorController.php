@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tutor;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class UserController extends Controller
+class AdminTutorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,13 +14,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $tutors = Tutor::with('user')->get();
         $viewData = array();
-        $viewData['title'] = 'Users';
-        $viewData['users'] = $users;
+        $viewData['title'] = 'Tutors';
+        $viewData['tutors'] = $tutors;
         
         
-        return view('admin.users.index')->with('viewData', $viewData);
+        return view('admin.tutors.index')->with('viewData', $viewData);
     }
 
     /**
@@ -61,13 +61,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Tutor $tutor)
     {
         $viewData = array();
-        $viewData['title'] = 'Edit Users';
-        $viewData['user'] = $user;
+        $viewData['title'] = 'Edit Tutors';
+        $viewData['tutor'] = $tutor;
 
-        return view('admin.users.edit')->with('viewData', $viewData);
+        return view('admin.tutors.edit')->with('viewData', $viewData);
     }
 
     /**
@@ -77,26 +77,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Tutor $tutor)
     {
         $request->validate([
-            'name'=>'required',
-            'last_name'=>'required',
-            'date_of_birth'=>'required',
-            'occupation'=>'required',
-            'email'=>'required',
-            'user_type'=>'required'
+            'school'=>'required',
+            'degree'=>'required',
+            'major'=>'required',
+            'description'=>'required'
         ]);
-        $user->name = $request->input('name');
-        $user->last_name = $request->input('last_name');
-        $user->date_of_birth = $request->input('date_of_birth');
-        $user->occupation = $request->input('occupation');
-        $user->email = $request->input('email');
-        $user->user_type = $request->input('user_type');
+        $tutor->school = $request->input('school');
+        $tutor->degree = $request->input('degree');
+        $tutor->major = $request->input('major');
+        $tutor->description = $request->input('description');
 
-        $user->save();
+        $tutor->save();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.tutors.index');
     }
 
     /**
@@ -105,9 +101,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Tutor $tutor)
     {
-        $user->delete();
+        $tutor->delete();
 
         return back();
     }

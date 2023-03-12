@@ -43,6 +43,7 @@ Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->na
 
 Route::group(['prefix'=>'admin', 'as'=>'admin.'],function(){
     Route::resource('users' , 'App\Http\Controllers\UserController');
+    Route::resource('tutors' , 'App\Http\Controllers\AdminTutorController');
 });
 
 Auth::routes();

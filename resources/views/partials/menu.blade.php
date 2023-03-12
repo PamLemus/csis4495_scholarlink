@@ -44,7 +44,7 @@
 
              @elseif(Auth()->user()->user_type == "admin")
              <a href="{{ route('admin.users.index') }}" class="nav-item nav-link">Users</a>
-             <a href="" class="nav-item nav-link">Tutors</a>
+             <a href="{{ route('admin.tutors.index') }}" class="nav-item nav-link">Tutors</a>
              <a href="" class="nav-item nav-link">Courses</a>
              @endif
 
