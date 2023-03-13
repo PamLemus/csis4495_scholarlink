@@ -41,6 +41,10 @@ Route::get('/chat', 'App\Http\Controllers\ChatController@index')->name('chat');
 
 Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->name('chat.send');
 
+Route::get('/content','App\Http\Controllers\SessionController@create')->name('content.lecture'); 
+Route::resource('content.lecture' , 'App\Http\Controllers\SessionController');
+
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

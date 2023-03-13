@@ -39,7 +39,7 @@
              @endif
              <a href="{{ route('chat') }}" class="nav-item nav-link">Chat</a>
              
-             <a href="" class="nav-item nav-link">My Lectures Content</a>
+             <a href="{{ route('content.lecture') }}" class="nav-item nav-link">My Lecture Content</a>
              
 
              @elseif(Auth()->user()->user_type == "admin")
@@ -61,3 +61,4 @@
  </nav>
 
  <!-- Navbar End -->
+
