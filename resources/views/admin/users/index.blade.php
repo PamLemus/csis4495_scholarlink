@@ -54,7 +54,9 @@
                             <a class="btn btn-primary" href="{{ route('admin.users.edit', $user) }}">Edit</a>
                             @if($user->user_type == 'user')
                             <button class="btn btn-danger" type="submit">Delete</button>
+                            @if(!$user->tutor()->exists())
                             <a class="btn btn-success" href="{{ route('admin.tutors.create') }}?id={{$user->id}}">Become a Tutor</a>
+                            @endif
                             @endif
                         </form>
                     </td>

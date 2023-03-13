@@ -1,4 +1,5 @@
 @include('partials.header')
+@include('partials.menu')
 @section('page_title', $viewData['title'])
 @extends('layouts.app')
 

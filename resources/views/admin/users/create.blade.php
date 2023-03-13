@@ -1,4 +1,5 @@
 @include('partials.header')
+@include('partials.menu')
 @extends('layouts.app')
 
 

@@ -1,4 +1,5 @@
 @include('partials.header')
+@include('partials.menu')
 @extends('layouts.app')
 
 
@@ -15,7 +16,7 @@
                
                     <form method="POST" action="{{ route('admin.courses.store') }}">
                         @csrf
-
+ 
                         <div class="row mb-3">
                             <label for="course_name" class="col-md-4 col-form-label text-md-end">{{ __('Course Name') }}</label>
 
