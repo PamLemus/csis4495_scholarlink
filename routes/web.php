@@ -44,6 +44,7 @@ Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->na
 Route::get('/content','App\Http\Controllers\SessionController@create')->name('content.lecture'); 
 Route::resource('content.lecture' , 'App\Http\Controllers\SessionController');
 
+Route::post('/content/evaluation', 'App\Http\Controllers\SessionController@evaluation')->name('content.lecture.evaluation');
 
 Auth::routes();
 

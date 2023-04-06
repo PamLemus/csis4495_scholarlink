@@ -1,18 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotesEmail;
 
 use App\Models\Session;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Tutor;
 use App\Models\User;
+use App\Models\UserGrade;
 use PDF;
 
 
 class SessionController extends Controller
 {
+    private $textarea;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +28,27 @@ class SessionController extends Controller
     {
         //
     }
+
+    public function evaluation(Request $request)
+    {
+        $userGrade = new UserGrade();
+        $userGrade->ug_user_id = $request->input('user_id');
+        $userGrade->ug_tutor_id = $request->input('tutor');
+        $userGrade->ug_course_id = $request->input('course');
+        $userGrade->grade = $request->input('grade');
+        $userGrade->difficulty = $request->input('difficulty');
+        $userGrade->take_again = $request->input('take_again');
+        $userGrade->save();
+
+        $this->textarea = $request->input('content');
+        //dd($this->textarea);
+        session()->flash('evaluation_success', 'Feedback submitted successfully.');
+
+   
+        return redirect()->back()->withInput()->with('textarea', $this->textarea);
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,19 +69,25 @@ class SessionController extends Controller
             'header' => "Enhace your learning process, take the notes of your sessions",
             'courses' => $registeredCourses,
             'notes' => "notes",
-            'tutors' => []
+            'tutors' => [],
+            'textarea' => session('textarea')
 
         ];
+
+        //dd($content['textarea']);
+        //dd($this->textarea);
 
         foreach ($allTutors as $tutor) {
             foreach ($allUsers as $user) {
                 if ($tutor->tutor_user_id == $user->id) {
                     $tutorName = $user->name;
+                    $tutorLastName = $user->last_name;
                     $tutor_id = $tutor->tutor_id;
                     $tutor_user_id = $tutor->tutor_user_id;
                     $content['tutors'][] = [
                         'id' => $tutor_id,
-                        'name' => $tutorName
+                        'name' => $tutorName,
+                        'last_name' => $tutorLastName
                     ];
                 }
             }
@@ -94,29 +127,42 @@ class SessionController extends Controller
                     ->from('users')
                     ->where('id', $formData->input('tutor'));
             })
-            ->select('users.name')
+            ->select('users.name', 'users.last_name')
             ->first();
-        
+
         $results['tutor_name'] = $tutor->name;
+        $results['tutor_last_name'] = $tutor->last_name;
         $results['content'] = $content;
 
         if ($formData->input('action') == 'download') {
-            $pdf = PDF::loadView('content.lecture_notes_pdf', ['results' => $results, 'imagePath' => public_path('img/carousel-2.jpg')]);
+
+
+            $pdf = PDF::loadView('content.lecture_notes_pdf', ['results' => $results]);
 
             // Download the PDF file
             return $pdf->download('lecture_notes.pdf');
+            //return redirect()->back()->with('success', 'Lecture notes save successfully.');
+
+            
         }
 
 
         if ($formData->input('action') == 'email') {
+            $pdf = PDF::loadView('content.lecture_notes_pdf', ['results' => $results]);
+            $pdfData = $pdf->output();
+
+            Mail::to($formData->input('email'))->send(new NotesEmail($pdfData));
+
+            return redirect()->back()->with('success', 'Lecture notes sent successfully.');
         }
 
-        // Redirect back to the form with a success message
-        return redirect()->back()->with('success', 'Lecture note saved successfully.');
+               // Redirect back to the form with a success message
+        return redirect()->back()->withInput()->with(['success' => 'Lecture notes and evaluation saved successfully.']);
     }
 
-
    
+
+
 
 
     /**
