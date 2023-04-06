@@ -203,6 +203,13 @@
     background-size: cover;
 }
 
+.page-header-content {
+    background: linear-gradient(rgba(24, 29, 56, .7), rgba(24, 29, 56, .7)), url(../img/carousel-2.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .page-header-inner {
     background: rgba(15, 23, 43, .7);
 }
@@ -432,3 +439,33 @@
     padding-right: 0;
     border-right: none;
 }
+
+
+@media print {
+    * { 
+      -webkit-print-color-adjust: exact !important; /* Fix for Chrome */
+      color-adjust: exact !important;
+    }
+    
+    body {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      page-break-after: avoid;
+    }
+    
+    p, ul, ol {
+      page-break-inside: avoid;
+    }
+    
+    a {
+      color: #006699;
+      text-decoration: underline;
+    }
+  }
+  

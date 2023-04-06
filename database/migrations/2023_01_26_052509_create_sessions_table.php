@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('session_tutor_id')->references('tutor_id')->on('tutors')->onDelete('cascade');
             $table->unsignedBigInteger('session_user_id');
             $table->foreign('session_user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('content');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

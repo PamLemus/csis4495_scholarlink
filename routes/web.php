@@ -40,10 +40,16 @@ Route::delete('tutors/{tutor_id}/courses/{course_id}', 'App\Http\Controllers\Tut
 Route::get('/chat', 'App\Http\Controllers\ChatController@index')->name('chat');
 
 Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->name('chat.send');
-
 Route::group(['prefix'=>'admin', 'as'=>'admin.'],function(){
     Route::resource('users' , 'App\Http\Controllers\UserController');
 });
+
+
+Route::get('/content','App\Http\Controllers\SessionController@create')->name('content.lecture'); 
+Route::resource('content.lecture' , 'App\Http\Controllers\SessionController');
+
+Route::post('/content/evaluation', 'App\Http\Controllers\SessionController@evaluation')->name('content.lecture.evaluation');
+
 
 Auth::routes();
 
