@@ -16,7 +16,7 @@
                 @else
                 <a class="btn btn-link" href="{{ route('tutor.create') }}">Become a Tutor </a>
                 @endif
-                <a class="btn btn-link" href="{{ route('chat') }}">Chat</a>
+                <a class="btn btn-link" href="{{ route('chat') }}">Chat Platform</a>
                 <a class="btn btn-link" href="{{ route('content.lecture') }}">My Lecture Content</a>
                 @elseif(Auth()->user()->user_type == "admin")
                 <a class="btn btn-link" href="{{ route('admin.users.index') }}">Users</a>
