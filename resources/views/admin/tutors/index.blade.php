@@ -15,10 +15,6 @@
         <a href="{{ route('tutor') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h3 class="h3">@yield('page_title')</h3>
         </a>
-
-        <div class="p-4 p-lg-0 mt-auto">
-            <a href="{{route('admin.users.create')}}" class="nav-item nav-link">Add User</a>
-        </div>
     </nav>
 
 
@@ -30,34 +26,32 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Last Name</th>
-                    <th scope="col">Date of Birth</th>
-                    <th scope="col">Occupation</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">User Type</th>
-                    <th scope="col-2">Actions</th>
+                    <th scope="col">School</th>
+                    <th scope="col">Degree</th>
+                    <th scope="col">Major</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Tutor Image</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($viewData["users"] as $key=>$user)
+                @foreach($viewData["tutors"] as $key=>$tutor)
                 <tr>
                     <th scope="row">{{$key+1}}</th>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->last_name}}</td>
-                    <td>{{$user->date_of_birth}}</td>
-                    <td>{{$user->occupation}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->user_type}}</td>
+                    <td>{{$tutor->user->name}}</td>
+                    <td>{{$tutor->user->last_name}}</td>
+                    <td>{{$tutor->school}}</td>
+                    <td>{{$tutor->degree}}</td>
+                    <td>{{$tutor->major}}</td>
+                    <td>{{$tutor->description}}</td>
+                    <td><img src="../storage/{{$tutor->tutor_img}}" alt="" width="50" height="50"></td>
+                    
                     <td>
-                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                        <form action="{{ route('admin.tutors.destroy', $tutor) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a class="btn btn-primary" href="{{ route('admin.users.edit', $user) }}">Edit</a>
-                            @if($user->user_type == 'user')
+                            <a class="btn btn-primary" href="{{ route('admin.tutors.edit', $tutor) }}">Edit</a>
                             <button class="btn btn-danger" type="submit">Delete</button>
-                            @if(!$user->tutor()->exists())
-                            <a class="btn btn-success" href="{{ route('admin.tutors.create') }}?id={{$user->id}}">Become a Tutor</a>
-                            @endif
-                            @endif
                         </form>
                     </td>
 

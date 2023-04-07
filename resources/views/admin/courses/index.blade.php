@@ -17,7 +17,7 @@
         </a>
 
         <div class="p-4 p-lg-0 mt-auto">
-            <a href="{{route('admin.users.create')}}" class="nav-item nav-link">Add User</a>
+            <a href="{{route('admin.courses.create')}}" class="nav-item nav-link">Add Course</a>
         </div>
     </nav>
 
@@ -28,36 +28,20 @@
             <thead style="text-align:center">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Date of Birth</th>
-                    <th scope="col">Occupation</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">User Type</th>
-                    <th scope="col-2">Actions</th>
+                    <th scope="col">Course Name</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($viewData["users"] as $key=>$user)
+                @foreach($viewData["courses"] as $key=>$course)
                 <tr>
                     <th scope="row">{{$key+1}}</th>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->last_name}}</td>
-                    <td>{{$user->date_of_birth}}</td>
-                    <td>{{$user->occupation}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->user_type}}</td>
+                    <td>{{$course->course_name}}</td>
                     <td>
-                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                        <form action="{{ route('admin.courses.destroy', $course) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a class="btn btn-primary" href="{{ route('admin.users.edit', $user) }}">Edit</a>
-                            @if($user->user_type == 'user')
+                            <a class="btn btn-primary" href="{{ route('admin.courses.edit', $course) }}">Edit</a>
                             <button class="btn btn-danger" type="submit">Delete</button>
-                            @if(!$user->tutor()->exists())
-                            <a class="btn btn-success" href="{{ route('admin.tutors.create') }}?id={{$user->id}}">Become a Tutor</a>
-                            @endif
-                            @endif
                         </form>
                     </td>
 
@@ -67,11 +51,6 @@
             </tbody>
         </table>
     </div>
-
-
-
-
-
     </main>
 </div>
 </div>
