@@ -88,4 +88,13 @@ class UserController extends Controller
     {
         //
     }
+
+    public function about()
+    {
+        $viewData = array();
+        $viewData['title'] = "This is the about page";
+       
+        return view('about')->with('viewData', $viewData);
+    }
+
 }

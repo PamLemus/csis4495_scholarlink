@@ -50,7 +50,7 @@
 
              @endif
              @guest
-             <a href="" class="nav-item nav-link">About</a>
+             <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
              <a href="{{ route('login') }}" class="nav-item nav-link">Log In</a>
 
          </div>

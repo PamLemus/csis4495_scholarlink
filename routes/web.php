@@ -20,6 +20,10 @@ Route::get('/', function () {
     return view('cover');
 });
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::get('/home','App\Http\Controllers\HomeController@list')->name('home');
 
 Route::get('/tutor','App\Http\Controllers\TutorController@index')->name('tutor'); 
@@ -40,6 +44,7 @@ Route::delete('tutors/{tutor_id}/courses/{course_id}', 'App\Http\Controllers\Tut
 Route::get('/chat', 'App\Http\Controllers\ChatController@index')->name('chat');
 
 Route::post("/chat/send", 'App\Http\Controllers\ChatController@sendMessage')->name('chat.send');
+
 Route::group(['prefix'=>'admin', 'as'=>'admin.'],function(){
     Route::resource('users' , 'App\Http\Controllers\UserController');
 });
