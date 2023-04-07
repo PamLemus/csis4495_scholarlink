@@ -31,13 +31,15 @@ Route::get('/tutor','App\Http\Controllers\TutorController@index')->name('tutor')
 Route::get('/tutor/create','App\Http\Controllers\TutorController@create')->name('tutor.create');
 
 Route::post('/tutor','App\Http\Controllers\TutorController@store')->name('tutor.store'); 
-
 Route::get('/tutor/find','App\Http\Controllers\TutorController@listTutors')->name('tutor.filter'); 
-
 Route::get('/tutor/results','App\Http\Controllers\TutorController@resultTutors')->name('tutor.results'); 
 Route::resource('tutor.course' , 'App\Http\Controllers\TutorCourseController');
 
 Route::get('/tutor/filters','App\Http\Controllers\TutorController@filtersTutors')->name('tutor.filters');
+Route::get('/tutor/{id}','App\Http\Controllers\TutorController@show')->name('tutor.show'); 
+
+
+
 
 Route::delete('tutors/{tutor_id}/courses/{course_id}', 'App\Http\Controllers\TutorCourseController@destroy')
     ->name('tutors.courses.destroy');

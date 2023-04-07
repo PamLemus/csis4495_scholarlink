@@ -47,6 +47,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+     /**
+     * Get the tutor record associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+
     public function tutor(){
         return $this->hasOne(Tutor::class,'tutor_user_id');
     }
