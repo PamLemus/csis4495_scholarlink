@@ -37,7 +37,7 @@
              <a href="{{ route('tutor.create') }}" class="nav-item nav-link">
                  Become a Tutor </a>
              @endif
-             <a href="{{ route('chat') }}" class="nav-item nav-link">Chat</a>
+             <a href="{{ route('chat') }}" class="nav-item nav-link">Chat Platform</a>
              
              <a href="{{ route('content.lecture') }}" class="nav-item nav-link">My Lecture Content</a>
              

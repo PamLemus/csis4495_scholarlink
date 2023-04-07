@@ -13,7 +13,7 @@ class ChatController extends Controller
     {
         
         $viewData = array();
-        $viewData['title'] = 'My Messages';
+        $viewData['title'] = 'Interactive Chat Platform';
         $viewData['cluster'] = env('PUSHER_APP_CLUSTER');
         $viewData['port'] = env('LARAVEL_WEBSOCKETS_PORT');
         $viewData['host'] = env('LARAVEL_WEBSOCKETS_HOST');

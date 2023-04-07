@@ -14,7 +14,7 @@
         
         <div class="card mt-4">
             <div class="card-header p-2">
-                <div><p>user connected: @{{ name }}</p></div>
+                <div><p>User connected: @{{ name }}</p></div>
             </div>
             <div v-if="connected === true" class="card-body">
                 <div class="col-12 bg-light pt-2 pb-2 mt-3">
