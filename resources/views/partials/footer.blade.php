@@ -12,11 +12,9 @@
                 @if(Auth()->user()->user_type == "user")
                 <a class="btn btn-link" href="{{ route('tutor.filter') }}">Home</a>
                 @if(Auth()->user()->tutor)
-                <a class="btn btn-link" href="{{ route('tutor') }}">
-                    Tutor Profile </a>
+                <a class="btn btn-link" href="{{ route('tutor') }}">Tutor Profile </a>
                 @else
-                <a class="btn btn-link" href="{{ route('tutor.create') }}">
-                    Become a Tutor </a>
+                <a class="btn btn-link" href="{{ route('tutor.create') }}">Become a Tutor </a>
                 @endif
                 <a class="btn btn-link" href="{{ route('chat') }}">Chat</a>
                 <a class="btn btn-link" href="{{ route('content.lecture') }}">My Lecture Content</a>

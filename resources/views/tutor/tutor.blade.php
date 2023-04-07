@@ -20,8 +20,14 @@
         </a>
 
         <div class="p-4 p-lg-0 mt-auto">
+            @if($viewData['route_name'] == 'tutor')
             <a href="{{route('tutor.course.index' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link">My Courses</a>
             <a href="{{route('tutor.course.store' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link">Add Courses</a>
+            @elseif($viewData['route_name'] == 'tutor.show')
+            <p class="nav-item nav-link">Overall Quality: <strong>{{$viewData['mean_grades']}}</strong></p>
+            <p class="nav-item nav-link">Level of Difficulty: <strong>{{$viewData['mean_difficulty']}}</strong></p>
+            <p class="nav-item nav-link">Would Take Again: <strong>{{$viewData['take_again']}}%</strong></p>
+            @endif
         </div>
     </nav>
 
@@ -33,7 +39,8 @@
             <div class="row">
                 <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
                     <div class="team-single-img" style="display: flex; justify-content: center;">
-                        <img src="storage/{{$viewData['user']->tutor->tutor_img}}" alt="">
+                        <img src="{{ asset('storage/' . $viewData['tutor_img']) }}" alt="{{ $viewData['user']->name }}'s Picture">
+
                     </div>
                     <div class="bg-light-gray padding-30px-all md-padding-25px-all sm-padding-20px-all text-center">
                         <h4 class="margin-10px-bottom font-size28 md-font-size22 sm-font-size20 font-weight-600">{{$viewData['user']->name .' ' . $viewData['user']->last_name}}</h4>

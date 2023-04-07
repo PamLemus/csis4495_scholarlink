@@ -14,65 +14,65 @@
 
 <!-- Filters -->
 
-    <form class="form-control-center" method="GET" action="{{ route('tutor.filters') }}" style="width:70%; margin: 0 auto;">
-        <div class="row">
-            <div class="col-md-6">
+<form class="form-control-center" method="GET" action="{{ route('tutor.filters') }}" style="width:70%; margin: 0 auto;">
+    <div class="row">
+        <div class="col-md-6">
 
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input name="name" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="last_name" class="form-label">Last Name:</label>
-                    <input name="last_name" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="occupation" class="form-label">Occupation:</label>
-                    <input name="occupation" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="school" class="form-label">School:</label>
-                    <input name="school" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="degree" class="form-label">Degree:</label>
-                    <input name="degree" class="form-control" type="text">
-                </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name:</label>
+                <input name="name" class="form-control" type="text">
             </div>
 
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="major" class="form-label">Major:</label>
-                    <input name="major" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description:</label>
-                    <input name="description" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="course_name" class="form-label">Course Name:</label>
-                    <input name="course_name" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="p_course_school" class="form-label">School where the tutor took the course:</label>
-                    <input name="p_course_school" class="form-control" type="text">
-                </div>
-
-                <div class="mb-3">
-                    <label for="p_course_teacher" class="form-label">Instructor who taught the course to the tutor:</label>
-                    <input name="p_course_teacher" class="form-control" type="text">
-                </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name:</label>
+                <input name="last_name" class="form-control" type="text">
             </div>
-            <input type="submit" class="btn btn-primary" value="Apply Filters">
+
+            <div class="mb-3">
+                <label for="occupation" class="form-label">Occupation:</label>
+                <input name="occupation" class="form-control" type="text">
+            </div>
+
+            <div class="mb-3">
+                <label for="school" class="form-label">School:</label>
+                <input name="school" class="form-control" type="text">
+            </div>
+
+            <div class="mb-3">
+                <label for="degree" class="form-label">Degree:</label>
+                <input name="degree" class="form-control" type="text">
+            </div>
         </div>
-    </form>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="major" class="form-label">Major:</label>
+                <input name="major" class="form-control" type="text">
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <input name="description" class="form-control" type="text">
+            </div>
+
+            <div class="mb-3">
+                <label for="course_name" class="form-label">Course Name:</label>
+                <input name="course_name" class="form-control" type="text">
+            </div>
+
+            <div class="mb-3">
+                <label for="p_course_school" class="form-label">School where the tutor took the course:</label>
+                <input name="p_course_school" class="form-control" type="text">
+            </div>
+
+            <div class="mb-3">
+                <label for="p_course_teacher" class="form-label">Instructor who taught the course to the tutor:</label>
+                <input name="p_course_teacher" class="form-control" type="text">
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Apply Filters">
+    </div>
+</form>
 
 
 
@@ -85,7 +85,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{{$tutors['delay']}}s">
                 <div class="team-item bg-light">
                     <div class="overflow-hidden text-center">
-                        <img class="img-fix" src="{{ asset('storage/'.$ins->tutor_img)}}" alt="">
+                        <a href="{{ route('tutor.show', $ins->tutor_id) }}"><img class="img-fix" src="{{ asset('storage/'.$ins->tutor_img)}}" alt=""></a>
                     </div>
                     <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                         <div class="bg-light d-flex justify-content-center pt-2 px-1">
@@ -128,7 +128,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{{$tutors['delay']}}s">
                 <div class="team-item bg-light">
                     <div class="overflow-hidden text-center">
-                        <img class="img-fix" src="{{ asset('storage/'.$miss->tutor_img)}}" alt="">
+                    <a href="{{ route('tutor.show', $miss->tutor_id) }}"><img class="img-fix" src="{{ asset('storage/'.$miss->tutor_img)}}" alt=""></a>
                     </div>
                     <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                         <div class="bg-light d-flex justify-content-center pt-2 px-1">
