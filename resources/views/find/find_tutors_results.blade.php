@@ -42,9 +42,11 @@
                 <label for="degree" class="form-label">Degree:</label>
                 <input name="degree" class="form-control" type="text">
             </div>
+
         </div>
 
         <div class="col-md-6">
+
             <div class="mb-3">
                 <label for="major" class="form-label">Major:</label>
                 <input name="major" class="form-control" type="text">
@@ -69,7 +71,9 @@
                 <label for="p_course_teacher" class="form-label">Instructor who taught the course to the tutor:</label>
                 <input name="p_course_teacher" class="form-control" type="text">
             </div>
+
         </div>
+
         <input type="submit" class="btn btn-primary" value="Apply Filters">
     </div>
 </form>
@@ -123,8 +127,6 @@
             </div>
             @endforeach
 
-        
-
             @foreach($tutors['tutors_without_courses'] as $miss)
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{{$tutors['delay']}}s">
                 <div class="team-item bg-light">
@@ -151,8 +153,8 @@
             @endforeach
             @if (count($tutors["results"]) == 0 && count($tutors["tutors_without_courses"]) == 0)
             <p class="text-center mb-4">No results found </p>
+            @endif
         </div>
-        @endif
     </div>
 </div>
 

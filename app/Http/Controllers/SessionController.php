@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotesEmail;
-
 use App\Models\Session;
 use Illuminate\Http\Request;
 use App\Models\Course;
@@ -13,7 +12,6 @@ use App\Models\Tutor;
 use App\Models\User;
 use App\Models\UserGrade;
 use PDF;
-
 
 class SessionController extends Controller
 {
@@ -97,7 +95,6 @@ class SessionController extends Controller
     }
 
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -161,10 +158,6 @@ class SessionController extends Controller
     }
 
    
-
-
-
-
     /**
      * Display the specified resource.
      *
