@@ -123,12 +123,13 @@
             </div>
             @endforeach
 
+        
 
             @foreach($tutors['tutors_without_courses'] as $miss)
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{{$tutors['delay']}}s">
                 <div class="team-item bg-light">
                     <div class="overflow-hidden text-center">
-                    <a href="{{ route('tutor.show', $miss->tutor_id) }}"><img class="img-fix" src="{{ asset('storage/'.$miss->tutor_img)}}" alt=""></a>
+                        <a href="{{ route('tutor.show', $miss->tutor_id) }}"><img class="img-fix" src="{{ asset('storage/'.$miss->tutor_img)}}" alt=""></a>
                     </div>
                     <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
                         <div class="bg-light d-flex justify-content-center pt-2 px-1">
@@ -148,15 +149,11 @@
                 </div>
             </div>
             @endforeach
+            @if (count($tutors["results"]) == 0 && count($tutors["tutors_without_courses"]) == 0)
+            <p class="text-center mb-4">No results found </p>
         </div>
-
-        @if (count($tutors["results"]) == 0 && count($tutors["tutors_without_courses"]) == 0)
-        <p class="text-center mb-4">No results found </p>
-
         @endif
     </div>
-
-
 </div>
 
 

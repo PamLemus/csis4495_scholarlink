@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             @guest
-            <a href="" class="nav-item nav-link">About</a>
+            <a href="{{ route('about') }}" class="nav-item nav-link">About</a>
             <a href="{{ route('register') }}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Create an account<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </div>

@@ -18,7 +18,7 @@ class AdminTutorController extends Controller
     {
         $tutors = Tutor::with('user')->get();
         $viewData = array();
-        $viewData['title'] = 'Tutors';
+        $viewData['title'] = 'Tutor Profile';
         $viewData['tutors'] = $tutors;
 
 

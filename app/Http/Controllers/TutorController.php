@@ -377,7 +377,8 @@ class TutorController extends Controller
                     'tutors.degree',
                     'tutors.school',
                     'tutors.description',
-                    'tutors.tutor_img'
+                    'tutors.tutor_img',
+                    'tutors.tutor_id'
                 )
                 ->where('tutors.tutor_user_id', '=', $tutorid)
                 ->where(function ($query) use ($request) {
