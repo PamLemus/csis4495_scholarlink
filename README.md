@@ -17,12 +17,16 @@ Development of a sample chat application using the Laravel PHP framework and Web
 
 First, clone this repository, install the dependencies, and configure your .env file.
 
-    https://github.com/PamLemus/csis4495_scholarlink.git
+    git clone https://github.com/PamLemus/csis4495_scholarlink.git
     cd csis4495_scholarlink
     php composer install
     cp .env.example .env
 
-- Then run the migrations:
+Generate an application key
+
+    php artisan key:generate
+
+Then run the migrations:
 
         php artisan migrate
 
@@ -33,6 +37,7 @@ Write and execute the command:
     php artisan serve
 
     npm run dev
+
 
 ### Command to process background events/tasks
 
@@ -46,3 +51,52 @@ In a different terminal, write and execute the command:
 
     php artisan websockets:serve
 
+### Lecture Content:
+
+To use the TinyMCE editor, follow these steps:
+
+1. Install the Tiny MCE editor by running the following command: 
+
+        composer require tinymce/tinymce
+
+2. Next, create an account and establish your own src inside the Tiny Script by adding the following code to your HTML file:
+
+        <script src="https://cdn.tiny.cloud/1/cki8x22gmf1i7myn3qqgl36xnyhl8zxerl57qf0ekc1hpa8s/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    This will enable you to use the TinyMCE editor in the project.
+
+### PDF Creation and Configuration with Laravel DomPDF (if needed)
+
+#### Step 1: Install Laravel DomPDF Package
+
+The following steps outline the process of generating PDF files using Laravel DomPDF Package:
+
+1. Install the Laravel DomPDF Package using Composer:
+
+        composer require dompdf/dompdf
+
+2. Install the 'PDF' class by installing the package using Composer:
+
+        composer require barryvdh/laravel-dompdf
+
+3. Add the following line to the 'providers' array in the 'config/app.php' file:
+
+        Barryvdh\DomPDF\ServiceProvider::class,
+
+4. Also, we need to add the following line to the aliases array in the same file:
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
+5. Run the following command to publish the configuration file for the package:
+
+        php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+
+    This command will create a dompdf.php file in the config directory, which you can modify to change the package's behavior.
+
+### Sending PDF as Email Attachment
+  
+Create a new Mailable class
+
+Run the following command to create a new Mailable class:
+
+    php artisan make:mail NotesEmail
