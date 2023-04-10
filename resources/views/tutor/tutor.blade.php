@@ -22,7 +22,7 @@
         <div class="p-4 p-lg-0 mt-auto">
             @if($viewData['route_name'] == 'tutor')
             <a href="{{route('tutor.course.index' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link">My Courses</a>
-            <a href="{{route('tutor.course.store' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link">Add Courses</a>
+            <a href="{{route('tutor.course.create' , ['tutor'=>$viewData['user']->tutor->tutor_id])}}" class="nav-item nav-link">Add Courses</a>
             @elseif($viewData['route_name'] == 'tutor.show')
             <p class="nav-item nav-link">Overall Quality: <strong>{{$viewData['mean_grades']}}</strong></p>
             <p class="nav-item nav-link">Level of Difficulty: <strong>{{$viewData['mean_difficulty']}}</strong></p>

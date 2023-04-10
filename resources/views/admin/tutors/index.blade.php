@@ -12,7 +12,7 @@
 <div class="container d-flex flex-row position-relative">
     <nav class="navbar navbar-light bg-light shadow p-0 flex-column position-relative " style="height:100%; left:-120px;">
 
-        <a href="{{ route('tutor') }}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h3 class="h3">@yield('page_title')</h3>
         </a>
     </nav>
