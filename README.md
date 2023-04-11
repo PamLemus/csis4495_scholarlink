@@ -30,6 +30,10 @@ Then run the migrations:
 
         php artisan migrate
 
+Importing the Database dump (For PowerShell (Windows))
+
+        Get-Content .\db_scholar_link_dump.sql | mysql -u root dbscholarlink
+
 ## Application Execution
 
 Write and execute the command:
