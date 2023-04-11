@@ -19,7 +19,7 @@ First, clone this repository, install the dependencies, and configure your .env 
 
     git clone https://github.com/PamLemus/csis4495_scholarlink.git
     cd csis4495_scholarlink
-    php composer install
+    composer install
     cp .env.example .env
 
 Generate an application key
@@ -35,6 +35,8 @@ Then run the migrations:
 Write and execute the command:
 
     php artisan serve
+
+    npm install
 
     npm run dev
 
